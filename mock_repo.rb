@@ -1,3 +1,5 @@
+Dir["repo/*.rb"].each {|file| require_relative file }
+
 class MockRepo
 
   include Repo::UserMethods

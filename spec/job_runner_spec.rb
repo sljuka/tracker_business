@@ -12,8 +12,8 @@ describe JobRunner do
 
   When { runner.run(job.id) }
 
-  #Then { expect(job).to receive(:finish_job) }
-  Then { expect(job_raw).to have_received(:finished=) }
-  Then { expect(repo).to have_received(:save_job) }
+  Then { expect(job_raw).to have_received(:finished=).with(true) }
+  Then { expect(repo).to have_received(:save_job).with(job) }
+  Then { expect(runner).to receive(:success).with("Chore finished") }
 
 end
