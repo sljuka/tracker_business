@@ -2,13 +2,7 @@ module Repo
   module JobMethods
 
     def find_job(id)
-      jobs = Struct.new(:id, :finished) do
-        def finish_job(id)
-          puts "Job finished"
-        end
-      end
 
-      j = jobs.new(1, false)
     end
 
     def create_job(job_params)
