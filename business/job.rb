@@ -1,52 +1,19 @@
 require './business/model'
+require './business/job_stuff/finish_job_support/finish_bug'
+require './business/job_stuff/finish_job_support/finish_chore'
+require './business/job_stuff/finish_job_support/finish_feature'
+require './business/job_stuff/job_constants'
 
 module Business
-
-  class FinishChore
-
-    def finish_job(context, job)
-      job.finished = true
-      if context.repo.save_job(job)
-        context.success("Chore finished")
-      else
-        context.failure("Chore not finished")
-      end
-    end
-
-  end
-
-  class FinishBug
-
-    def finish_job(context, job)
-      job.finished = true
-      if context.repo.save_job(job)
-        context.success("Bug squashed!")
-      else
-        context.failure("Bug still alive")
-      end
-    end
-
-  end
-
-  class FinishFeature
-
-    def finish_job(context, job)
-      job.finished = true
-      if context.repo.save_job(job)
-        context.success("Feature finished")
-      else
-        context.failure("Feature not finished")
-      end
-    end
-
-  end
   
   class Job < Model
 
+    include JobStuff::JobConstants
+
     JOB_FINISH_HASH = {
-      "chore"   => FinishChore,
-      "bug"     => FinishBug,
-      "feature" => FinishFeature
+      JOB_TYPES[:chore]   => FinishJobSupport::FinishChore,
+      JOB_TYPES[:bug]     => FinishJobSupport::FinishBug,
+      JOB_TYPES[:feature] => FinishJobSupport::FinishFeature
     }
 
     def finish_job(context)

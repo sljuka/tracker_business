@@ -1,10 +1,11 @@
-require File.join(File.dirname(__FILE__), '../business/job')
-require File.join(File.dirname(__FILE__), '../runners/job_runner')
+require './business/job'
+require './runners/job_runner'
 
-describe JobRunner do 
+describe JobRunner::FinishJob do 
 
   let(:job_raw) { double(id: 1, type: "chore", :'finished=' => true, :'biz?' => false) }
   let(:job) { Business::Job.wrap(job_raw) }
+  
   let(:repo) { double(find_job: job, save_job: true) }
   let(:context) { double(repo: repo) }
   let(:runner) { JobRunner::FinishJob.new(context) }
